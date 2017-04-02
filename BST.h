@@ -12,6 +12,8 @@ date: march, 27, 2017
 #include <vector>
 #include <string>
 
+using namespace std;
+
 class BST{
   public:
    //default constructor and destructor
