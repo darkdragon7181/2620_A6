@@ -14,12 +14,23 @@ int main()
    int n = 0;
    
    int current = 1;
+   
    cout << "enter the integer to recieve all it's permutations: ";
    cin >> n;
-   int A[n];
+   
    while (n > 0)
    {
+      int A[n];
+      //an array of n ints from 1 to n
+      //not the best way to do it but it works
+      for (int i = 0; i < n; i++)
+      {
+	 A[i] = i+1;
+      }
+
       print_perm(A[n], n, current);
+      cout << "Enter the next int, or 0 to exit: ";
+      cin >> n;
    }
    return 0;
 }
