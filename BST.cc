@@ -19,13 +19,20 @@ BST::~BST()
 {
    destroy(root);
 }
-vector<string>& BST::operator[] (const string& key)
+vector<string>& BST::operator[] (const string& k)
 {
    //be sure to return a vector of strings *vstr
+   if(find(root, k)== nullptr)//if the key is found
+   {
+      return insert(root, k) -> value;
+   }
+   return find(root, k) -> value;
 }
 
 
-void BST::traverse (void (*f)(const string &key, vector<string>& value));
+void BST::traverse (void (*f)(const string &k, vector<string>& value))
+{
+}
 
 
 
@@ -46,59 +53,68 @@ void BST::destroy (node* n)
    {
       destroy (n -> lPtr);
       destroy (n -> rPtr);
-      destroy n;
+      delete n;
    }
-//   else
-//      destroy n;
+   delete n;
 }
 int BST::max(int, int) const
 {
    
 }
-node::BST::node* BST::find(node* leaf, const string& key)
+/*******************************************************
+find function, searches the tree to find the key, if not
+found return nullptr if found return the pointer's value
+ *******************************************************/
+BST::node* BST::find(node* leaf, const string& k)
 {
    if (leaf != nullptr)
    {
-      if(key ==leaf->value)
+      if(k== leaf->key)
 	 return leaf;
-      if(key< leaf->value)
-	 return find(leaf->lPtr, key);
+      if(k< leaf->key)
+	 return find(leaf->lPtr, k);
       else
-	 return find(leaf -> rPtr, key);
+	 return find(leaf -> rPtr, k);
    }
-   else
-      return nullptr;
 }
 
-void BST::traverseInOrder(node* node, void (*f) (const string&, vector<string>&))
+void BST::traverseInOrder(node* node, void (*f) (const string& k, vector<string>& val))
 {
    // ??
 }
 
-void BST::insert(node*& leaf, const string& key)
+/***********************************************
+insert function, searches the tree to find out
+where to place the key, if it's less than or grater
+than the root recurses with a the child as the root
+and keeps going and inserts it in the proper location
+***********************************************/
+/*void*/ BST::node* BST::insert(node*& leaf, const string& k)
 {
-   if (key< leaf->value)
+   if (k< leaf->key)//less than
    {
-      if (leaf -> != nullptr)
-	 insert(leaf-> lPtr, key);
+      if (leaf -> lPtr != nullptr)
+	 return insert(leaf-> lPtr, k);
       else
       {
 	 leaf -> lPtr = new node;
-	 leaf -> lPtr -> value = key;
-	 leaf -> rPtr -> left = nullptr;
-	 leaf -> lPtr -> rptr = nullptr;
+	 leaf -> lPtr -> key = k;
+	 //leaf -> rPtr -> left = nullptr;
+	 //leaf -> lPtr -> rptr = nullptr;
+	 return leaf-> lPtr;
       }
    }
-   else if(key >= leaf->value)
+   else if(k >= leaf->key)//grater than or equal to
    {
       if(leaf -> rPtr != nullptr)
-	 insert(leaf-> rPtr, key);
+	 return insert(leaf-> rPtr, k);
       else
       {
 	 leaf -> rPtr = new node;
-	 leaf -> rPtr -> value = key;
-	 leaf -> rPtr -> lPtr = nullptr;
-	 leaf -> rPtr -> rPtr = nullptr;
+	 leaf -> rPtr -> key = k;//key or valur = k?
+	 //leaf -> rPtr -> lPtr = nullptr;
+	 //leaf -> rPtr -> rPtr = nullptr;
+	 return leaf->rPtr;
       }
    }
 }

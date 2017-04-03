@@ -29,7 +29,7 @@ class BST{
    // func to traverse bst, smallest to largest
    void traverse (void (*f)(const string &, vector<string>&));
 
-   
+   //do i need a operator overload for ==?
    
   private:
    //bsts consist of nodes
@@ -37,7 +37,8 @@ class BST{
       node (string s = "", node* l = nullptr, node* r = nullptr)
       : key{s}, lPtr{l}, rPtr{r}{}
       string key;
-      vector <string> value;
+      
+      vector<string> value;
 
       node* lPtr; // left node
       node* rPtr; // right node
@@ -46,10 +47,10 @@ class BST{
    node* root;
 
    //helper functions for the great and mighty public
-   void distroy (node*);
+   void destroy (node*);
    int max(int, int) const;
    node* find(node*, const string&);
    void traverseInOrder(node*, void (*f) (const string&, vector<string>&));
-   void insert(node*&, const string&);
+   node* insert(node*&, const string&);
 };
 #endif
