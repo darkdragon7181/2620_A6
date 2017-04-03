@@ -9,6 +9,7 @@ date: march, 27, 2017
 
 #include "BST.h"
 
+using namespace std;
 
 BST::BST()
 {
@@ -116,5 +117,20 @@ and keeps going and inserts it in the proper location
 	 //leaf -> rPtr -> rPtr = nullptr;
 	 return leaf->rPtr;
       }
+   }
+}
+
+void BST::print_BST(node* root)
+{
+   if(root != nullptr)
+   {
+      cout << "left tree: " << endl;
+      if (root -> lPtr)
+	 print_BST(root -> lPtr);
+      cout << root -> value[1] << endl;
+      cout << "right tree: " << endl;
+      if(root -> rPtr)
+	 print_BST(root -> rPtr);
+      
    }
 }

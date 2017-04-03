@@ -1,0 +1,6 @@
+Hello out there.  This is a program that allows you to simulate a map using
+a binary search tree. Every word in this file will be mapped into the tree.
+For example the word Hello has a "signature" of elloH.  elloH becomes the key
+and Hello is entered into the vector of strings associated with this signature.
+So if two words have the same signature they will be entered into the same
+tree node.  So instead of using the STL map we use our own binary search tree.

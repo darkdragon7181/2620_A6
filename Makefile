@@ -13,14 +13,14 @@ CCCFLAGS = -Wall -g -std=c++11
 
 # all is called a target, after the colon you have dependencies
 # ie. "the target all is dependent on the executables
-all : prob2 #perm
+all : prob1 #perm
 
 # the target <excecutable1> is dependent on the list of dependencies
 # the line following  is the required executable (don't need to adjust it)
 # Note: executable lines, ie. $(CCC) ..., always begin with a tab.
 # $^ = this target
 # $@ = this/these dependencies
-prob2: BST.o prob2.o
+prob1: BST.o prob1.o
 	$(CCC) $(CCCFLAGS) $^ -o $@
 #perm: perm.o
 #	$(CCC) $(CCCFLAGS) $^ -o $@
@@ -42,11 +42,11 @@ prob2: BST.o prob2.o
 # corresponding executable line
 
 BST.o : BST.h
-prob2.o : BST.h
+prob1.o : BST.h
 #perm.o : perm.cc
 #etc
 clean:
 	rm -f *.o *~ *% *# .#*
 
 clean-all: clean
-	rm -f prob2 #perm
+	rm -f prob1 #perm

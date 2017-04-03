@@ -19,7 +19,8 @@ class BST{
    //default constructor and destructor
    BST();
    ~BST();
-
+   
+   
    //overloaded sub scrpicript op
    //similar to the map associative container
    //if the key isn't found the node with the key is inserted into the tree
@@ -45,12 +46,12 @@ class BST{
 
    };
    node* root;
-
    //helper functions for the great and mighty public
    void destroy (node*);
    int max(int, int) const;
    node* find(node*, const string&);
    void traverseInOrder(node*, void (*f) (const string&, vector<string>&));
    node* insert(node*&, const string&);
+   void print_BST(node*);
 };
 #endif
