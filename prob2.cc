@@ -1,67 +1,41 @@
-//
-// CS 2620 Assignment 4 Solution
-//
-// Howard Cheng
-// Oct 30, 2013
-//
-// This is a program that recognizes all anagrams from the input.  We
-// assume that all input words consist of only upper case letters.
-//
-
-#include <vector>
+#include "BST.h"
 #include <iostream>
-#include <string>
-#include <map>
 #include <algorithm>
-
 using namespace std;
 
-// Computes the signature of the string, which is the original string
-// arranged in alphabetical order.
-//
-// Assumes that the string w consists of only upper case letters.
-string signature(const string& w);
-
-// prints all the anagrams in the map
-void printAnagrams(const map<string, vector<string>>& signatureList);
-
-int main(void)
+//void print_BST(node*);
+string key(const string& k);
+void print (const string& k, vector<string>& val);
+int main()
 {
-  string w, s;
-  map<string, vector<string>> signatureList;
-
-  // read all words
-  while (cin >> w) {
-    // compute signature and store it into the list
-    s = signature(w);
-    signatureList[s].push_back(w);
-  }
-
-  // print the results
-  printAnagrams(signatureList);
-
-  return 0;
+   BST b1;
+   string valu, s;
+   //cout << "enter the values to place in a tree: ";
+   
+   while (cin >> valu)
+   {
+      s = key(valu);
+      b1[s].push_back(valu);
+      //b1.traverse(print(s,b1[s]));
+   }
+   b1.traverse(print);
+   
+   return 0;
 }
 
-// Computes the signature of the string, which is the original string
-// arranged in alphabetical order.
-//
-// Assumes that the string w consists of only upper case letters.
-string signature(const string& w)
+string key(const string& k)
 {
-  string s = w;
-  sort(s.begin(), s.end());
-  return s;
+   string s = k;
+   sort(s.begin(), s.end());
+   return s;
 }
 
-// prints all the anagrams in the map
-void printAnagrams(const map<string, vector<string>>& signatureList)
+void print (const string& k, vector<string>& val)
 {
-  for (const auto &p : signatureList) {
-    const auto& v = p.second;
-    for (unsigned int j = 0; j < v.size()-1; j++) {
-      cout << v[j] << " ";
-    }
-    cout << v[v.size()-1] << endl;
-  }
+   cout << k << ": ";
+   for (auto i = val.begin(); i != val.end(); ++i)
+   {
+      cout << *i << " "; 
+   }
+   cout << endl;
 }

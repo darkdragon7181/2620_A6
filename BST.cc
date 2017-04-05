@@ -23,16 +23,18 @@ BST::~BST()
 vector<string>& BST::operator[] (const string& k)
 {
    //be sure to return a vector of strings *vstr
-   if(find(root, k)== nullptr)//if the key is found
+   node* tempPtr = find(root,k);
+   if(tempPtr== nullptr)//if the key is found
    {
-      return insert(root, k) -> value;
+      return insert(root, k)->value;
    }
-   return find(root, k) -> value;
+   return tempPtr->value;
 }
 
 
-void BST::traverse (void (*f)(const string &k, vector<string>& value))
+void BST::traverse (void (*f)(const string &k, vector<string>& val))
 {
+   traverseInOrder(root, f);
 }
 
 
@@ -52,36 +54,44 @@ void BST::destroy (node* n)
    */
    if(n != nullptr)
    {
-      destroy (n -> lPtr);
-      destroy (n -> rPtr);
+      destroy (n->lPtr);
+      destroy (n->rPtr);
       delete n;
    }
-   delete n;
+   //delete n;
 }
-int BST::max(int, int) const
-{
-   
-}
+
 /*******************************************************
 find function, searches the tree to find the key, if not
 found return nullptr if found return the pointer's value
  *******************************************************/
 BST::node* BST::find(node* leaf, const string& k)
 {
-   if (leaf != nullptr)
-   {
-      if(k== leaf->key)
-	 return leaf;
-      if(k< leaf->key)
-	 return find(leaf->lPtr, k);
-      else
-	 return find(leaf -> rPtr, k);
-   }
+   if (leaf == nullptr)
+      return nullptr;
+   if(k== leaf->key)
+      return leaf;
+   if(k< leaf->key)
+      return find(leaf->lPtr, k);
+   else
+      return find(leaf -> rPtr, k);
 }
 
-void BST::traverseInOrder(node* node, void (*f) (const string& k, vector<string>& val))
+void BST::traverseInOrder(node* leaf, void (*f) (const string&,
+						 vector<string>&))
 {
-   // ??
+   if(leaf)
+   {
+      /*
+	go left
+	print
+	go right
+       */
+      traverseInOrder(leaf->lPtr, f);
+      f(leaf->key, leaf->value);
+      
+      traverseInOrder(leaf->rPtr, f);
+   }
 }
 
 /***********************************************
@@ -92,45 +102,36 @@ and keeps going and inserts it in the proper location
 ***********************************************/
 /*void*/ BST::node* BST::insert(node*& leaf, const string& k)
 {
+
+   if(leaf == nullptr)
+   {
+      leaf = new node(k);
+      return leaf;
+   }
    if (k< leaf->key)//less than
    {
-      if (leaf -> lPtr != nullptr)
-	 return insert(leaf-> lPtr, k);
-      else
-      {
-	 leaf -> lPtr = new node;
-	 leaf -> lPtr -> key = k;
-	 //leaf -> rPtr -> left = nullptr;
-	 //leaf -> lPtr -> rptr = nullptr;
-	 return leaf-> lPtr;
-      }
+      //if (leaf -> lPtr != nullptr)
+      return insert(leaf-> lPtr, k);
+      //else
+      //{
+      //leaf -> lPtr = new node;
+      //leaf -> lPtr -> key = k;
+      //leaf -> rPtr -> left = nullptr;
+      //leaf -> lPtr -> rptr = nullptr;
+      //return leaf-> lPtr;
+      //}
    }
-   else if(k >= leaf->key)//grater than or equal to
-   {
-      if(leaf -> rPtr != nullptr)
-	 return insert(leaf-> rPtr, k);
-      else
-      {
-	 leaf -> rPtr = new node;
-	 leaf -> rPtr -> key = k;//key or valur = k?
-	 //leaf -> rPtr -> lPtr = nullptr;
-	 //leaf -> rPtr -> rPtr = nullptr;
-	 return leaf->rPtr;
-      }
-   }
+   else //if(k >= leaf->key)//grater than or equal to
+      //{
+      //if(leaf -> rPtr != nullptr)
+      return insert(leaf-> rPtr, k);
+   //else
+   //{
+   //leaf -> rPtr = new node;
+   //leaf -> rPtr -> key = k;//key or valur = k?
+   //leaf -> rPtr -> lPtr = nullptr;
+   //leaf -> rPtr -> rPtr = nullptr;
+   //return leaf->rPtr;
+   //}
 }
 
-void BST::print_BST(node* root)
-{
-   if(root != nullptr)
-   {
-      cout << "left tree: " << endl;
-      if (root -> lPtr)
-	 print_BST(root -> lPtr);
-      cout << root -> value[1] << endl;
-      cout << "right tree: " << endl;
-      if(root -> rPtr)
-	 print_BST(root -> rPtr);
-      
-   }
-}

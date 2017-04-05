@@ -7,13 +7,13 @@ n! permutations of n ints
 ********************************************/
 #include <iostream>
 using namespace std;
-void print_perm (int A[], int n, int current);
+void print_perm (int B[], int n, int current);
 
 int main()
 {
    int n = 0;
    
-   int current = 1;
+   int current = 0;
    
    cout << "enter the integer to recieve all it's permutations: ";
    cin >> n;
@@ -27,25 +27,28 @@ int main()
       {
 	 A[i] = i+1;
       }
-
-      print_perm(A[n], n, current);
+      
+      print_perm(A, n, current);
       cout << "Enter the next int, or 0 to exit: ";
       cin >> n;
    }
    return 0;
 }
 
-
-void print_perm (int A[], int n, int current)
+void print_perm (int B[], int n, int current)
 {
-   while (current != n)
+   if(current == n-1)
    {
-      for (int i = n; i < current; i++)
-      {
-	 swap(A[n], A[i]);
-	 print_perm (A[i], n+1, current);
-	 swap(A[n], A[i]);
-      }
+      for (int a = 0; a < n; a++)
+	 cout << *(B+a) << " ";
+      cout << endl;
    }
+   else
+      for (int i = current; i < n; i++)
+      {
+	 swap(B[current], B[i]);
+	 print_perm (B, n, current+1);
+	 swap(B[current], B[i]);
+      }
 }
-   
+

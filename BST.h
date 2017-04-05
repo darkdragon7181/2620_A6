@@ -35,12 +35,12 @@ class BST{
   private:
    //bsts consist of nodes
    struct node{
-      node (string s = "", node* l = nullptr, node* r = nullptr)
+      node (string s, node* l = nullptr, node* r = nullptr)
       : key{s}, lPtr{l}, rPtr{r}{}
       string key;
       
       vector<string> value;
-
+ 
       node* lPtr; // left node
       node* rPtr; // right node
 
@@ -48,10 +48,9 @@ class BST{
    node* root;
    //helper functions for the great and mighty public
    void destroy (node*);
-   int max(int, int) const;
+
    node* find(node*, const string&);
    void traverseInOrder(node*, void (*f) (const string&, vector<string>&));
    node* insert(node*&, const string&);
-   void print_BST(node*);
 };
 #endif
